@@ -1,0 +1,45 @@
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="id ? updateTask() : addTask()"
+  class="task-card p-4 mx-auto shadow-sm"
+>
+  <h4 class="mb-4 text-center">
+    {{ id ? 'Update Task' : 'Add New Task' }}
+  </h4>
+
+  <div class="mb-3">
+    <label class="form-label">Task Title</label>
+    <input
+      type="text"
+      class="form-control custom-input"
+      placeholder="Enter task title"
+      formControlName="title"
+    />
+    <div
+      class="text-danger mt-1"
+      *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched"
+    >
+      Title is required (min 3 characters)
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea
+      class="form-control custom-input"
+      placeholder="Enter description"
+      formControlName="description"
+      rows="3"
+    ></textarea>
+    <div
+      class="text-danger mt-1"
+      *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched"
+    >
+      Description is required
+    </div>
+  </div>
+
+  <button type="submit" class="btn submit-btn w-100" [disabled]="taskForm.invalid">
+    {{ id ? 'Update Task' : 'Add Task' }}
+  </button>
+</form>
